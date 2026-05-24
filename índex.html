@@ -1,0 +1,2281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>handclō · esqueleto visual v.02</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ECECEE;
+    --bg-2: #E0E0E3;
+    --bg-3: #D4D4D8;
+    --surface: #F5F5F7;
+    --surface-2: #FFFFFF;
+    --ink: #1A1A1C;
+    --ink-2: #3A3A3D;
+    --ink-3: #6E6E73;
+    --ink-4: #A1A1A6;
+    --inox: #8E8E93;
+    --inox-2: #AEAEB2;
+    --inox-3: #C7C7CC;
+    --silver-grad: linear-gradient(135deg, #C7C7CC 0%, #E5E5EA 50%, #AEAEB2 100%);
+    --silver-grad-2: linear-gradient(180deg, #D1D1D6 0%, #8E8E93 100%);
+    --line: rgba(26, 26, 28, 0.08);
+    --line-2: rgba(26, 26, 28, 0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+
+  body {
+    background: #1A1A1C;
+    color: #F5F5F7;
+    font-family: 'Inter', -apple-system, sans-serif;
+    min-height: 100vh;
+    padding: 60px 24px 120px;
+  }
+
+  /* ============= HEADER ============= */
+  .doc-header {
+    max-width: 1400px;
+    margin: 0 auto 80px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .doc-header .meta {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--inox-2);
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  .doc-header h1 {
+    font-size: 52px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+  .doc-header h1 .light { font-weight: 300; color: var(--inox-2); }
+  .doc-header .subtitle {
+    font-size: 16px;
+    color: var(--inox-2);
+    max-width: 720px;
+    line-height: 1.55;
+    font-weight: 400;
+  }
+
+  /* ============= SECTION HEADERS ============= */
+  .section-header {
+    max-width: 1400px;
+    margin: 100px auto 48px;
+  }
+  .section-header .section-meta {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--inox-2);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  .section-header h2 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: #F5F5F7;
+  }
+  .section-header h2 .light { font-weight: 300; color: var(--inox-3); }
+  .section-header p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--inox-2);
+    margin-top: 12px;
+    max-width: 640px;
+  }
+
+  /* ============= SCREEN GRID ============= */
+  .screens-row {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    gap: 32px;
+  }
+  .screens-row.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .screens-row.cols-2 { grid-template-columns: repeat(2, 1fr); max-width: 940px; }
+
+  .screen-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .screen-act {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--inox-2);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .screen-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: #F5F5F7;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+  .screen-tagline {
+    font-size: 11px;
+    color: var(--inox-3);
+    margin-bottom: 24px;
+    text-align: center;
+    font-weight: 400;
+  }
+
+  /* ============= PHONE FRAME ============= */
+  .phone {
+    width: 300px;
+    height: 630px;
+    background: #2a2a2d;
+    border-radius: 42px;
+    padding: 12px 9px;
+    position: relative;
+    box-shadow:
+      0 30px 60px -20px rgba(0,0,0,0.8),
+      0 0 0 1px rgba(255,255,255,0.05);
+  }
+  .phone::before {
+    content: '';
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 20px;
+    background: #0a0a0c;
+    border-radius: 12px;
+    z-index: 20;
+  }
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    background: var(--bg);
+    border-radius: 32px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 22px 4px;
+    font-size: 11px;
+    color: var(--ink);
+    z-index: 5;
+    font-weight: 600;
+  }
+  .status-bar .right { display: flex; gap: 4px; align-items: center; font-size: 9px; }
+
+  /* ============= TELA 1 · LOGIN ============= */
+  .login-screen {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: linear-gradient(180deg, #B8B8BC 0%, #8E8E93 60%, #6E6E73 100%);
+  }
+  .login-screen::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.15), transparent 50%),
+      radial-gradient(ellipse at 70% 70%, rgba(0,0,0,0.2), transparent 50%);
+  }
+  /* Closet door visual */
+  .login-door {
+    position: absolute;
+    top: 18%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 65%;
+    height: 50%;
+    background: linear-gradient(180deg, #8E8E93 0%, #6E6E73 100%);
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 2px;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.2);
+  }
+  .login-door::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: rgba(0,0,0,0.3);
+  }
+  .login-door::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    width: 4px;
+    height: 30px;
+    background: linear-gradient(180deg, #E5E5EA, #8E8E93);
+    border-radius: 2px;
+    transform: translateY(-50%);
+  }
+  .login-handle-left {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    width: 4px;
+    height: 30px;
+    background: linear-gradient(180deg, #E5E5EA, #8E8E93);
+    border-radius: 2px;
+    transform: translateY(-50%);
+  }
+  .login-logo {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding-top: 38%;
+    font-size: 52px;
+    font-weight: 300;
+    color: var(--ink);
+    letter-spacing: -0.04em;
+    font-style: italic;
+  }
+  .login-tagline {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: var(--ink-2);
+    font-size: 11px;
+    font-weight: 500;
+    margin-top: 6px;
+    letter-spacing: 0.04em;
+  }
+  .login-buttons {
+    position: absolute;
+    bottom: 50px;
+    left: 24px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 3;
+  }
+  .login-btn {
+    background: var(--surface-2);
+    padding: 13px;
+    border-radius: 100px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .login-btn.primary {
+    background: var(--ink);
+    color: var(--surface-2);
+  }
+  .login-note {
+    position: absolute;
+    bottom: 24px;
+    left: 0; right: 0;
+    text-align: center;
+    font-size: 9px;
+    color: rgba(0,0,0,0.5);
+    z-index: 3;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  /* ============= HOME · LAYOUT GERAL ============= */
+  .home {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: var(--bg);
+  }
+  .home-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 18px 14px;
+  }
+  .home-top .clo-id {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .home-top .clo-id .sub {
+    display: block;
+    font-size: 9px;
+    color: var(--ink-3);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    margin-top: 1px;
+  }
+  .home-top .icons {
+    display: flex;
+    gap: 8px;
+  }
+  .home-top .icon-btn {
+    width: 32px; height: 32px;
+    background: var(--surface-2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: var(--ink-2);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  }
+
+  /* ============= HOME BODY (sliver + constelação) ============= */
+  .home-body {
+    flex: 1;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Sliver porta do armário */
+  .closet-sliver {
+    width: 36px;
+    background: var(--silver-grad);
+    border-right: 1px solid rgba(0,0,0,0.15);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset -3px 0 6px rgba(0,0,0,0.1);
+  }
+  .closet-sliver::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 6px;
+    width: 3px;
+    height: 26px;
+    background: linear-gradient(180deg, #F5F5F7, #8E8E93);
+    border-radius: 2px;
+    transform: translateY(-50%);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  }
+  .closet-sliver .handle-label {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-90deg);
+    font-size: 7px;
+    color: var(--ink-2);
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transform-origin: center;
+    width: 80px;
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  /* Constelação central */
+  .constellation {
+    flex: 1;
+    padding: 14px 14px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+  }
+  .const-section-label {
+    font-size: 8px;
+    font-weight: 700;
+    color: var(--ink-3);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+    padding-left: 4px;
+  }
+
+  /* Card base */
+  .card {
+    background: var(--surface-2);
+    border-radius: 14px;
+    padding: 12px 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    position: relative;
+  }
+  .card .card-label {
+    font-size: 8px;
+    font-weight: 700;
+    color: var(--ink-3);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .card .card-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .card .card-sub {
+    font-size: 10px;
+    color: var(--ink-3);
+    margin-top: 2px;
+    font-weight: 500;
+  }
+
+  /* LOOK DO DIA card */
+  .look-card {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .look-card .look-thumbs {
+    display: flex;
+    gap: 3px;
+  }
+  .look-card .lt {
+    width: 28px; height: 36px;
+    background: var(--bg-3);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+  .look-card .lt::before {
+    content: '';
+    position: absolute;
+    inset: 4px 6px;
+    background: var(--inox-2);
+    opacity: 0.5;
+    clip-path: polygon(30% 0, 70% 0, 100% 25%, 100% 100%, 0 100%, 0 25%);
+  }
+  .look-card .info { flex: 1; }
+
+  /* PASTA card */
+  .pasta-card .pasta-mini {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3px;
+    margin-top: 8px;
+  }
+  .pasta-card .pm {
+    aspect-ratio: 1;
+    background: var(--bg-3);
+    border-radius: 4px;
+    position: relative;
+  }
+  .pasta-card .pm::before {
+    content: '';
+    position: absolute;
+    inset: 25%;
+    background: var(--inox-2);
+    opacity: 0.6;
+    clip-path: polygon(30% 0, 70% 0, 100% 25%, 100% 100%, 0 100%, 0 25%);
+  }
+
+  /* DESAFIO card */
+  .desafio-card {
+    background: linear-gradient(135deg, #2a2a2d 0%, #1a1a1c 100%);
+    color: #F5F5F7;
+  }
+  .desafio-card .card-label { color: var(--inox-3); }
+  .desafio-card .card-title { color: #F5F5F7; }
+  .desafio-card .card-sub { color: var(--inox-3); }
+  .desafio-card .deal {
+    margin-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .desafio-card .deal .reward {
+    font-size: 12px;
+    font-weight: 700;
+    color: #F5F5F7;
+  }
+  .desafio-card .deal .from {
+    font-size: 8px;
+    color: var(--inox-3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* ARQUIVO card */
+  .arquivo-card .archive-bar {
+    margin-top: 8px;
+    height: 4px;
+    background: var(--bg-2);
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+  .arquivo-card .archive-bar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: 35%;
+    background: var(--inox);
+    border-radius: 2px;
+  }
+
+  /* ============= BARRA INFERIOR ============= */
+  .home-bottom {
+    background: var(--surface-2);
+    padding: 12px 14px 14px;
+    border-top: 1px solid var(--line);
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.03);
+  }
+  .progress-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .progress-row .level-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ink);
+    min-width: 38px;
+  }
+  .progress-row .bar-wrap {
+    flex: 1;
+    height: 6px;
+    background: var(--bg-2);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+  }
+  .progress-row .bar-fill {
+    position: absolute;
+    inset: 0;
+    width: 42%;
+    background: var(--silver-grad-2);
+    border-radius: 3px;
+  }
+  .progress-row .hclo-val {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .progress-row .hclo-val .unit {
+    font-size: 8px;
+    font-weight: 600;
+    color: var(--ink-3);
+    margin-left: 2px;
+    letter-spacing: 0.1em;
+  }
+  .bottom-tools {
+    display: flex;
+    gap: 8px;
+  }
+  .tool-btn {
+    flex: 1;
+    background: var(--bg);
+    padding: 8px 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--line);
+  }
+  .tool-btn .tb-label {
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--ink-3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .tool-btn .tb-ico {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--silver-grad);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  }
+
+  /* ============= TELA · CLOSET ABERTO ============= */
+  .closet-open-header {
+    padding: 12px 18px 10px;
+    background: var(--silver-grad);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  .closet-open-header .title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .closet-open-header .title {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .closet-open-header .count {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--ink-2);
+  }
+  .closet-open-tabs {
+    display: flex;
+    gap: 14px;
+    margin-top: 10px;
+    padding-bottom: 2px;
+  }
+  .closet-open-tabs .tab {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink-3);
+  }
+  .closet-open-tabs .tab.active {
+    color: var(--ink);
+    font-weight: 800;
+    position: relative;
+  }
+  .closet-open-tabs .tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0; right: 0;
+    height: 2px;
+    background: var(--ink);
+  }
+  .closet-filters-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 18px;
+    background: var(--bg);
+  }
+  .filter-pills {
+    display: flex;
+    gap: 6px;
+  }
+  .pill {
+    padding: 5px 11px;
+    background: var(--surface-2);
+    border-radius: 100px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--ink-3);
+    border: 1px solid var(--line);
+  }
+  .pill.active {
+    background: var(--ink);
+    color: var(--surface-2);
+    border-color: var(--ink);
+  }
+  .filter-actions {
+    display: flex;
+    gap: 6px;
+  }
+  .filter-ico {
+    width: 28px; height: 28px;
+    background: var(--surface-2);
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--ink-2);
+  }
+  .closet-grid {
+    flex: 1;
+    padding: 12px 14px 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    overflow-y: auto;
+    background: var(--bg);
+  }
+  .piece-card {
+    background: var(--surface-2);
+    border-radius: 6px;
+    aspect-ratio: 3/4;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+  .piece-card::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -45%);
+    width: 65%; height: 70%;
+    background: var(--inox-2);
+    opacity: 0.4;
+    clip-path: polygon(30% 0, 70% 0, 100% 25%, 100% 100%, 0 100%, 0 25%);
+  }
+  .piece-card.v2::before { clip-path: polygon(20% 0, 80% 0, 90% 30%, 100% 100%, 0 100%, 10% 30%); opacity: 0.5; }
+  .piece-card.v3::before { clip-path: polygon(15% 0, 85% 0, 100% 100%, 0 100%); height: 80%; opacity: 0.45; }
+  .piece-card.v4::before { clip-path: polygon(40% 0, 60% 0, 80% 20%, 80% 100%, 20% 100%, 20% 20%); height: 75%; opacity: 0.55; }
+  .piece-card.dormant::before { opacity: 0.2; }
+  .piece-card .uses {
+    position: absolute;
+    top: 5px;
+    right: 6px;
+    font-size: 8px;
+    font-weight: 700;
+    color: var(--ink-2);
+    background: var(--surface-2);
+    padding: 1px 4px;
+    border-radius: 3px;
+  }
+  .piece-card.dormant .uses { color: var(--ink-4); }
+
+  /* ============= TELA · FILTROS (BOTTOM SHEET) ============= */
+  .filters-overlay {
+    flex: 1;
+    background: rgba(26,26,28,0.4);
+    position: relative;
+  }
+  .filters-sheet {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: var(--surface-2);
+    border-radius: 20px 20px 0 0;
+    padding: 12px 18px 18px;
+    max-height: 78%;
+    overflow-y: auto;
+  }
+  .filters-grip {
+    width: 36px; height: 4px;
+    background: var(--inox-3);
+    border-radius: 2px;
+    margin: 0 auto 12px;
+  }
+  .filters-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--ink);
+    text-align: center;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+  .filter-section {
+    margin-bottom: 16px;
+  }
+  .filter-section h4 {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .color-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .color-dot {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 1.5px solid var(--inox-3);
+  }
+  .color-dot.preto { background: #1A1A1C; }
+  .color-dot.cinza { background: #8E8E93; }
+  .color-dot.branco { background: #FFFFFF; }
+  .color-dot.bege { background: #C7B299; }
+  .color-dot.marrom { background: #6E4A2E; }
+  .color-dot.azul { background: #4A6B8E; }
+  .color-dot.verde { background: #4A6E5C; }
+  .color-dot.vermelho { background: #8E4A4A; }
+  .color-dot.active { border: 2px solid var(--ink); transform: scale(1.05); }
+
+  .select-row {
+    background: var(--bg);
+    padding: 10px 12px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--line);
+  }
+  .select-row .lbl {
+    font-size: 11px;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .select-row .chev {
+    font-size: 10px;
+    color: var(--ink-3);
+  }
+
+  .chip-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    padding: 7px 12px;
+    background: var(--bg);
+    border-radius: 100px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--ink-2);
+    border: 1px solid var(--line);
+  }
+  .chip.active {
+    background: var(--ink);
+    color: var(--surface-2);
+    border-color: var(--ink);
+  }
+  .filter-actions-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+  }
+  .filter-actions-row .btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 100px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .filter-actions-row .btn.clear {
+    background: var(--bg);
+    color: var(--ink-2);
+  }
+  .filter-actions-row .btn.apply {
+    background: var(--ink);
+    color: var(--surface-2);
+  }
+
+  /* ============= TELA · CARTEIRA ============= */
+  .wallet-header {
+    padding: 16px 18px 12px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line);
+  }
+  .wallet-header .back-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .wallet-header .back {
+    width: 28px; height: 28px;
+    background: var(--bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .wallet-header .h-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .wallet-summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .wallet-card-visual {
+    width: 80px;
+    height: 50px;
+    background: var(--silver-grad);
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.4);
+    overflow: hidden;
+  }
+  .wallet-card-visual::before {
+    content: 'clō';
+    position: absolute;
+    bottom: 6px;
+    right: 8px;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--ink);
+    font-style: italic;
+  }
+  .wallet-card-visual::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 18px;
+    height: 12px;
+    background: linear-gradient(135deg, #FFD700 0%, #DAA520 100%);
+    border-radius: 2px;
+    opacity: 0.6;
+  }
+  .wallet-balance .b-label {
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--ink-3);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .wallet-balance .b-amount {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .wallet-balance .b-unit {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink-2);
+    margin-left: 3px;
+  }
+
+  .wallet-tools {
+    padding: 14px 14px;
+    flex: 1;
+    overflow-y: auto;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .tool-row {
+    background: var(--surface-2);
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid var(--line);
+  }
+  .tool-row .t-ico {
+    width: 30px; height: 30px;
+    background: var(--bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--ink-2);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .tool-row .t-text { flex: 1; }
+  .tool-row .t-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .tool-row .t-sub {
+    font-size: 9px;
+    color: var(--ink-3);
+    margin-top: 1px;
+    font-weight: 500;
+  }
+  .tool-row .t-meta {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ink-2);
+  }
+  .tool-row .t-meta.positive { color: #2A6E3F; }
+
+  /* ============= TELA · LOOK DO DIA ============= */
+  .look-day-header {
+    padding: 14px 18px 12px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line);
+  }
+  .look-day-header .lh-label {
+    font-size: 9px;
+    color: var(--ink-3);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-weight: 700;
+  }
+  .look-day-header .lh-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .look-canvas-area {
+    flex: 1;
+    padding: 16px;
+    background: var(--bg);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+  }
+  .look-slot {
+    background: var(--surface-2);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+  .look-slot::before {
+    content: '';
+    position: absolute;
+    inset: 18%;
+    background: var(--inox-2);
+    opacity: 0.5;
+    clip-path: polygon(30% 0, 70% 0, 100% 25%, 100% 100%, 0 100%, 0 25%);
+  }
+  .look-slot.empty {
+    border: 1.5px dashed var(--inox-3);
+    background: transparent;
+  }
+  .look-slot.empty::before { display: none; }
+  .look-slot.empty::after {
+    content: '+';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--inox-2);
+  }
+  .look-day-foot {
+    background: var(--surface-2);
+    padding: 12px 18px 14px;
+    border-top: 1px solid var(--line);
+  }
+  .occasion-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: var(--bg);
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  .occasion-field .of-l {
+    font-size: 9px;
+    color: var(--ink-3);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .occasion-field .of-v {
+    font-size: 11px;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .save-btn {
+    background: var(--ink);
+    color: var(--surface-2);
+    padding: 12px;
+    border-radius: 100px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  /* ============= TELA · PASTA DE ESTILO ============= */
+  .pasta-header {
+    padding: 14px 18px 10px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line);
+  }
+  .pasta-header .ph-label {
+    font-size: 9px;
+    color: var(--ink-3);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-weight: 700;
+  }
+  .pasta-header .ph-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+  .pasta-header .ph-tabs {
+    display: flex;
+    gap: 14px;
+  }
+  .pasta-header .ph-tab {
+    font-size: 10px;
+    color: var(--ink-3);
+    font-weight: 600;
+    padding-bottom: 6px;
+  }
+  .pasta-header .ph-tab.active {
+    color: var(--ink);
+    font-weight: 800;
+    border-bottom: 2px solid var(--ink);
+  }
+  .pasta-content {
+    flex: 1;
+    padding: 14px;
+    background: var(--bg);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .combo-card {
+    background: var(--surface-2);
+    border-radius: 12px;
+    padding: 12px;
+    border: 1px solid var(--line);
+  }
+  .combo-card .combo-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .combo-card .combo-name .sub {
+    display: block;
+    font-size: 9px;
+    color: var(--ink-3);
+    font-weight: 500;
+    margin-top: 1px;
+    letter-spacing: 0.05em;
+  }
+  .combo-pieces {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+  }
+  .combo-piece {
+    aspect-ratio: 1;
+    background: var(--bg);
+    border-radius: 4px;
+    position: relative;
+  }
+  .combo-piece::before {
+    content: '';
+    position: absolute;
+    inset: 22%;
+    background: var(--inox-2);
+    opacity: 0.55;
+    clip-path: polygon(30% 0, 70% 0, 100% 25%, 100% 100%, 0 100%, 0 25%);
+  }
+  .combo-piece.v2::before { clip-path: polygon(20% 0, 80% 0, 90% 30%, 100% 100%, 0 100%, 10% 30%); }
+  .combo-piece.v3::before { clip-path: polygon(40% 0, 60% 0, 80% 20%, 80% 100%, 20% 100%, 20% 20%); }
+
+  /* ============= TELA · DESAFIO ATIVO ============= */
+  .desafio-screen {
+    flex: 1;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+  }
+  .desafio-hero {
+    background: linear-gradient(135deg, #2a2a2d 0%, #1a1a1c 100%);
+    padding: 24px 20px 20px;
+    color: var(--surface-2);
+    border-radius: 0 0 20px 20px;
+  }
+  .desafio-hero .dh-brand {
+    font-size: 10px;
+    color: var(--inox-3);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .desafio-hero .dh-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--surface-2);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .desafio-hero .dh-pieces {
+    display: flex;
+    gap: 6px;
+  }
+  .desafio-hero .dh-piece {
+    width: 50px; height: 60px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 6px;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .desafio-hero .dh-piece::before {
+    content: '';
+    position: absolute;
+    inset: 14%;
+    background: var(--inox-2);
+    opacity: 0.6;
+    clip-path: polygon(30% 0, 70% 0, 100% 25%, 100% 100%, 0 100%, 0 25%);
+  }
+  .desafio-body {
+    padding: 16px 18px;
+    flex: 1;
+  }
+  .desafio-explainer {
+    font-size: 12px;
+    color: var(--ink-2);
+    line-height: 1.55;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  .desafio-reward {
+    background: var(--silver-grad);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+  .desafio-reward .dr-l {
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .desafio-reward .dr-v {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .desafio-reward .dr-v .u {
+    font-size: 10px;
+    font-weight: 600;
+    margin-left: 2px;
+  }
+  .desafio-period {
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .desafio-period .dp-l {
+    font-size: 9px;
+    color: var(--ink-3);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .desafio-period .dp-v {
+    font-size: 11px;
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .desafio-cta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .desafio-cta .cta {
+    padding: 12px;
+    border-radius: 100px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .desafio-cta .cta.skip {
+    background: var(--bg-2);
+    color: var(--ink-2);
+  }
+  .desafio-cta .cta.accept {
+    background: var(--ink);
+    color: var(--surface-2);
+  }
+
+  /* ============= TELA · VOLTAR (30 DIAS) ============= */
+  .voltar-screen {
+    flex: 1;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+  }
+  .voltar-top {
+    padding: 16px 18px 14px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line);
+  }
+  .voltar-top .vt-period {
+    font-size: 9px;
+    color: var(--ink-3);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .voltar-top .vt-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .voltar-body {
+    padding: 16px;
+    flex: 1;
+    overflow-y: auto;
+  }
+  .voltar-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .vstat {
+    background: var(--surface-2);
+    padding: 14px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+  }
+  .vstat .n {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .vstat .l {
+    font-size: 9px;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 700;
+    margin-top: 8px;
+    line-height: 1.3;
+  }
+  .voltar-obs {
+    background: var(--surface-2);
+    border-radius: 12px;
+    padding: 14px 16px;
+    border-left: 3px solid var(--inox);
+  }
+  .voltar-obs .ol {
+    font-size: 9px;
+    color: var(--ink-3);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .voltar-obs .ot {
+    font-size: 13px;
+    color: var(--ink);
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+  }
+
+  /* ============= TELA · DADOS ============= */
+  .dados-screen { flex: 1; background: var(--bg); display: flex; flex-direction: column; }
+  .dados-top {
+    padding: 14px 18px 12px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line);
+  }
+  .dados-top .dt-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .dados-tabs {
+    display: flex;
+    gap: 6px;
+    padding: 10px 14px;
+    background: var(--bg);
+  }
+  .dados-tabs .dtab {
+    flex: 1;
+    text-align: center;
+    padding: 8px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--ink-3);
+  }
+  .dados-tabs .dtab.active {
+    background: var(--ink);
+    color: var(--surface-2);
+    border-color: var(--ink);
+  }
+  .dados-body {
+    flex: 1;
+    padding: 12px 14px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .chart-card {
+    background: var(--surface-2);
+    border-radius: 14px;
+    padding: 14px;
+    border: 1px solid var(--line);
+  }
+  .chart-card .cc-label {
+    font-size: 9px;
+    color: var(--ink-3);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .chart-card .cc-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  /* Donut */
+  .donut-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .donut {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    background:
+      conic-gradient(
+        #1A1A1C 0% 24%,
+        #6E6E73 24% 37%,
+        #8E8E93 37% 50%,
+        #AEAEB2 50% 60%,
+        #C7C7CC 60% 70%,
+        #D4D4D8 70% 78%,
+        #E0E0E3 78% 100%
+      );
+    position: relative;
+    flex-shrink: 0;
+  }
+  .donut::after {
+    content: '';
+    position: absolute;
+    inset: 22%;
+    background: var(--surface-2);
+    border-radius: 50%;
+  }
+  .donut-info {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 2;
+  }
+  .donut-info .n {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .donut-info .l {
+    font-size: 7px;
+    color: var(--ink-3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 2px;
+    font-weight: 600;
+  }
+  .donut-legend {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .donut-legend .lg {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    color: var(--ink-2);
+    font-weight: 500;
+  }
+  .donut-legend .lg .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+  .donut-legend .lg .val {
+    margin-left: auto;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  /* Bars */
+  .bars-list {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-top: 4px;
+  }
+  .bar-row {
+    display: grid;
+    grid-template-columns: 70px 1fr 30px;
+    gap: 8px;
+    align-items: center;
+  }
+  .bar-row .bn {
+    font-size: 10px;
+    color: var(--ink-2);
+    font-weight: 600;
+  }
+  .bar-row .bb {
+    height: 6px;
+    background: var(--bg-2);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+  }
+  .bar-row .bb .fill {
+    position: absolute;
+    inset: 0;
+    background: var(--silver-grad-2);
+    border-radius: 3px;
+  }
+  .bar-row .bv {
+    font-size: 10px;
+    color: var(--ink);
+    font-weight: 700;
+    text-align: right;
+  }
+
+  /* ============= NOTES BLOCK ============= */
+  .doc-notes {
+    max-width: 1400px;
+    margin: 80px auto 0;
+    padding: 36px 0 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+  .note .nl {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--inox-2);
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  .note .nt {
+    font-size: 15px;
+    font-weight: 700;
+    color: #F5F5F7;
+    line-height: 1.45;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .note .nb {
+    font-size: 12px;
+    color: var(--inox-2);
+    line-height: 1.65;
+    font-weight: 400;
+  }
+
+  .doc-footer {
+    max-width: 1400px;
+    margin: 80px auto 0;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 10px;
+    color: var(--inox-2);
+    letter-spacing: 0.1em;
+  }
+  .doc-footer .logo {
+    font-size: 22px;
+    font-style: italic;
+    color: #F5F5F7;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+  }
+
+  @media (max-width: 1100px) {
+    .screens-row.cols-3, .screens-row.cols-2 { grid-template-columns: 1fr; max-width: 320px; }
+    .doc-notes { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="doc-header">
+  <div class="meta">handclō · esqueleto visual · v.02 · referência fits</div>
+  <h1>o app <span class="light">como cômodo digital.</span></h1>
+  <p class="subtitle">Fundo cinza claro com acentos de inox. O closet vive como uma porta lateral arrastável. O centro da tela é uma constelação de mecanismos que conversam entre si. A barra inferior mostra evolução e carteira. Nenhum elemento de rede social. Nenhum perfil de usuária. O closet tem identidade própria no ecossistema.</p>
+</header>
+
+<!-- ============================ -->
+<!-- BLOCO 1 · ENTRADA + HOME    -->
+<!-- ============================ -->
+<section class="section-header">
+  <div class="section-meta">parte i · entrada</div>
+  <h2>Login e tela inicial <span class="light">com a porta do armário ao lado.</span></h2>
+  <p>A primeira impressão estabelece a metáfora central. Uma porta de inox que abre para um cômodo digital. A home reúne todos os mecanismos da handclō em um único lugar, contando uma história da ação para a memória.</p>
+</section>
+
+<div class="screens-row cols-3">
+
+  <!-- LOGIN -->
+  <div class="screen-cell">
+    <div class="screen-act">tela 01</div>
+    <div class="screen-name">Login</div>
+    <div class="screen-tagline">entrar com nome próprio</div>
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <span>9:41</span>
+          <div class="right">●●● ▲ 95%</div>
+        </div>
+        <div class="login-screen">
+          <div class="login-handle-left"></div>
+          <div class="login-door"></div>
+          <div class="login-logo">handclō</div>
+          <div class="login-tagline">o cômodo digital</div>
+          <div class="login-buttons">
+            <div class="login-btn primary">Entrar com convite</div>
+            <div class="login-btn">Continuar com Apple</div>
+            <div class="login-btn">Continuar com email</div>
+          </div>
+          <div class="login-note">acesso por indicação</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOME -->
+  <div class="screen-cell">
+    <div class="screen-act">tela 02 · principal</div>
+    <div class="screen-name">Home</div>
+    <div class="screen-tagline">closet + constelação + evolução</div>
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <span>9:42</span>
+          <div class="right">●●● ▲ 95%</div>
+        </div>
+        <div class="home">
+          <div class="home-top">
+            <div class="clo-id">
+              closet · em formação
+              <span class="sub">142 peças · nível Glow</span>
+            </div>
+            <div class="icons">
+              <div class="icon-btn">⌕</div>
+              <div class="icon-btn">≡</div>
+            </div>
+          </div>
+          <div class="home-body">
+            <div class="closet-sliver">
+              <div class="handle-label">closet</div>
+            </div>
+            <div class="constellation">
+              <div class="const-section-label">agora</div>
+              <div class="card look-card">
+                <div class="look-thumbs">
+                  <div class="lt"></div>
+                  <div class="lt"></div>
+                  <div class="lt"></div>
+                </div>
+                <div class="info">
+                  <div class="card-label">look do dia</div>
+                  <div class="card-title">composição 04</div>
+                  <div class="card-sub">para reunião externa</div>
+                </div>
+              </div>
+
+              <div class="const-section-label">potencial</div>
+              <div class="card pasta-card">
+                <div class="card-label">pasta de estilo</div>
+                <div class="card-title">3 combinações novas</div>
+                <div class="pasta-mini">
+                  <div class="pm"></div>
+                  <div class="pm"></div>
+                  <div class="pm"></div>
+                  <div class="pm"></div>
+                </div>
+              </div>
+
+              <div class="const-section-label">reconhecimento</div>
+              <div class="card desafio-card">
+                <div class="card-label">marca presente no closet</div>
+                <div class="card-title">um look com o<br>que já é seu</div>
+                <div class="deal">
+                  <div class="from">desafio ativo</div>
+                  <div class="reward">+ 60 hclō</div>
+                </div>
+              </div>
+
+              <div class="const-section-label">memória</div>
+              <div class="card arquivo-card">
+                <div class="card-label">arquivo</div>
+                <div class="card-title">28 peças preservadas</div>
+                <div class="card-sub">histórico de uso mantido</div>
+                <div class="archive-bar"></div>
+              </div>
+            </div>
+          </div>
+          <div class="home-bottom">
+            <div class="progress-row">
+              <div class="level-name">Glow</div>
+              <div class="bar-wrap"><div class="bar-fill"></div></div>
+              <div class="hclo-val">347<span class="unit">hclō</span></div>
+            </div>
+            <div class="bottom-tools">
+              <div class="tool-btn">
+                <div class="tb-label">carteira</div>
+                <div class="tb-ico"></div>
+              </div>
+              <div class="tool-btn">
+                <div class="tb-label">dados</div>
+                <div class="tb-ico"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLOSET ABERTO -->
+  <div class="screen-cell">
+    <div class="screen-act">tela 03 · porta totalmente aberta</div>
+    <div class="screen-name">Closet</div>
+    <div class="screen-tagline">acervo em tela cheia</div>
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <span>10:14</span>
+          <div class="right">●●● ▲ 95%</div>
+        </div>
+        <div class="closet-open-header">
+          <div class="title-row">
+            <div class="title">closet</div>
+            <div class="count">142 peças</div>
+          </div>
+          <div class="closet-open-tabs">
+            <div class="tab active">peças</div>
+            <div class="tab">looks salvos</div>
+            <div class="tab">coleções</div>
+          </div>
+        </div>
+        <div class="closet-filters-row">
+          <div class="filter-pills">
+            <div class="pill active">todas</div>
+            <div class="pill">tops</div>
+            <div class="pill">baixo</div>
+            <div class="pill">calçados</div>
+          </div>
+          <div class="filter-actions">
+            <div class="filter-ico">⚲</div>
+          </div>
+        </div>
+        <div class="closet-grid">
+          <div class="piece-card"><div class="uses">12×</div></div>
+          <div class="piece-card v2"><div class="uses">8×</div></div>
+          <div class="piece-card v3 dormant"><div class="uses">2×</div></div>
+          <div class="piece-card v4"><div class="uses">5×</div></div>
+          <div class="piece-card dormant"><div class="uses">0×</div></div>
+          <div class="piece-card v2"><div class="uses">7×</div></div>
+          <div class="piece-card v3"><div class="uses">4×</div></div>
+          <div class="piece-card v4 dormant"><div class="uses">1×</div></div>
+          <div class="piece-card"><div class="uses">9×</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================ -->
+<!-- BLOCO 2 · OPERAÇÃO DIÁRIA   -->
+<!-- ============================ -->
+<section class="section-header">
+  <div class="section-meta">parte ii · operação diária</div>
+  <h2>Filtros, look do dia, pasta de estilo. <span class="light">As ferramentas que sustentam o cotidiano.</span></h2>
+  <p>Três telas operacionais que dão corpo ao uso diário. O filtro abre como bottom sheet. O look do dia monta a combinação. A pasta de estilo guarda as composições antes do uso.</p>
+</section>
+
+<div class="screens-row cols-3">
+
+  <!-- FILTROS -->
+  <div class="screen-cell">
+    <div class="screen-act">tela 04</div>
+    <div class="screen-name">Filtros</div>
+    <div class="screen-tagline">bottom sheet sobre o closet</div>
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <span>10:18</span>
+          <div class="right">●●● ▲ 95%</div>
+        </div>
+        <div class="filters-overlay">
+          <div class="filters-sheet">
+            <div class="filters-grip"></div>
+            <div class="filters-title">Filtros</div>
+
+            <div class="filter-section">
+              <h4>Cores</h4>
+              <div class="color-row">
+                <div class="color-dot preto active"></div>
+                <div class="color-dot cinza"></div>
+                <div class="color-dot branco"></div>
+                <div class="color-dot bege active"></div>
+                <div class="color-dot marrom"></div>
+                <div class="color-dot azul"></div>
+                <div class="color-dot verde"></div>
+                <div class="color-dot vermelho"></div>
+              </div>
+            </div>
+
+            <div class="filter-section">
+              <h4>Categorias</h4>
+              <div class="select-row">
+                <div class="lbl">3 selecionadas</div>
+                <div class="chev">›</div>
+              </div>
+            </div>
+
+            <div class="filter-section">
+              <h4>Estação</h4>
+              <div class="chip-row">
+                <div class="chip">primavera</div>
+                <div class="chip active">verão</div>
+                <div class="chip">outono</div>
+                <div class="chip">inverno</div>
+              </div>
+            </div>
+
+            <div class="filter-section">
+              <h4>Marcas presentes no closet</h4>
+              <div class="select-row">
+                <div class="lbl">selecionar marcas</div>
+                <div class="chev">›</div>
+              </div>
+            </div>
+
+            <div class="filter-actions-row">
+              <div class="btn clear">limpar</div>
+              <div class="btn apply">aplicar</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOOK DO DIA -->
+  <div class="screen-cell">
+    <div class="screen-act">tela 05</div>
+    <div class="screen-name">Look do dia</div>
+    <div class="screen-tagline">composição antes da saída</div>
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <span>7:32</span>
+          <div class="right">●●● ▲ 95%</div>
+        </div>
+        <div class="look-day-header">
+          <div class="lh-label">hoje · 24 de novembro</div>
+          <div class="lh-title">monte o look do dia</div>
+        </div>
+        <div class="look-canvas-area">
+          <div class="look-slot"></div>
+          <div class="look-slot"></div>
+          <div class="look-slot"></div>
+          <div class="look-slot empty"></div>
+        </div>
+        <div class="look-day-foot">
+          <div class="occasion-field">
+            <div class="of-l">ocasião motivadora</div>
+            <div class="of-v">reunião externa</div>
+          </div>
+          <div class="save-btn">SALVAR LOOK</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASTA DE ESTILO -->
+  <div class="screen-cell">
+    <div class="screen-act">tela 06</div>
+    <div class="screen-name">Pasta de estilo</div>
+    <div class="screen-tagline">combinações antes do uso</div>
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <span>22:08</span>
+          <div class="right">●●● ▲ 95%</div>
+        </div>
+        <div class="pasta-header">
+          <div class="ph-label">composições</div>
+          <div class="ph-title">pasta de estilo</div>
+          <div class="ph-tabs">
+            <div class="ph-tab active">salvas</div>
+            <div class="ph-tab">vestidas</div>
+            <div class="ph-tab">arquivadas</div>
+          </div>
+        </div>
+        <div class="pasta-content">
+          <div class="combo-card">
+            <div class="combo-name">combinação 04<span class="sub">para reunião externa</span></div>
+            <div class="combo-pieces">
+              <div class="combo-piece"></div>
+              <div class="combo-piece v2"></div>
+              <div class="combo-piece v3"></div>
+              <div class="combo-piece"></div>
+            </div>
+          </div>
+          <div class="combo-card">
+            <div class="combo-name">combinação 03<span class="sub">happy hour</span></div>
+            <div class="combo-pieces">
+              <div class="combo-piece v2"></div>
+              <div class="combo-piece"></div>
+              <div class="combo-piece v3"></div>
+              <div class="combo-piece v2"></div>
+            </div>
+          </div>
+          <div class="combo-card">
+            <div class="combo-name">combinação 02<span class="sub">domingo em casa</span></div>
+            <div class="combo-pieces">
+              <div class="combo-piece"></div>
+              <div class="combo-piece v3"></div>
+              <div class="combo-piece"></div>
+              <div class="combo-piece v2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================ -->
+<!-- BLOCO 3 · ECOSSISTEMA       -->
+<!-- ============================ -->
+<section class="section-header">
+  <div class="section-meta">parte iii · ecossistema</div>
+  <h2>Desafio, voltar, dados. <span class="light">Onde o sistema devolve sentido ao uso.</span></h2>
+  <p>O desafio é convite, não pressão. O voltar é observação, não plano. Os dados mostram inventário e uso real lado a lado, como o documento exige.</p>
+</section>
+
+<div class="screens-row cols-3">
+
+  <!-- DESAFIO -->
+  <div class="screen-cell">
+    <div class="screen-act">tela 07</div>
+    <div class="screen-name">Desafio ativo</div>
+    <div class="screen-tagline">reconhecimento do que já é seu</div>
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <span>11:08</span>
+          <div class="right">●●● ▲ 95%</div>
+        </div>
+        <div class="desafio-screen">
+          <div class="desafio-hero">
+            <div class="dh-brand">marca presente · 12% do closet</div>
+            <div class="dh-title">um look com<br>o que já é seu.</div>
+            <div class="dh-pieces">
+              <div class="dh-piece"></div>
+              <div class="dh-piece"></div>
+              <div class="dh-piece"></div>
+            </div>
+          </div>
+          <div class="desafio-body">
+            <div class="desafio-explainer">três peças suas dessa marca aparecem com frequência no seu acervo. usar uma delas esta semana confirma o que o uso já vinha dizendo.</div>
+            <div class="desafio-reward">
+              <div class="dr-l">recompensa</div>
+              <div class="dr-v">+ 60<span class="u">hclō</span></div>
+            </div>
+            <div class="desafio-period">
+              <div class="dp-l">prazo</div>
+              <div class="dp-v">7 dias</div>
+            </div>
+            <div class="desafio-cta">
+              <div class="cta skip">talvez depois</div>
+              <div class="cta accept">aceito</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOLTAR -->
+  <div class="screen-cell">
+    <div class="screen-act">tela 08</div>
+    <div class="screen-name">Voltar · 30 dias</div>
+    <div class="screen-tagline">observação devolvida com cuidado</div>
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <span>9:51</span>
+          <div class="right">●●● ▲ 95%</div>
+        </div>
+        <div class="voltar-screen">
+          <div class="voltar-top">
+            <div class="vt-period">primeiro mês</div>
+            <div class="vt-title">o que ficou.</div>
+          </div>
+          <div class="voltar-body">
+            <div class="voltar-stats">
+              <div class="vstat">
+                <div class="n">12</div>
+                <div class="l">looks<br>compostos</div>
+              </div>
+              <div class="vstat">
+                <div class="n">28</div>
+                <div class="l">peças<br>tocadas</div>
+              </div>
+              <div class="vstat">
+                <div class="n">3</div>
+                <div class="l">ocasiões<br>frequentes</div>
+              </div>
+              <div class="vstat">
+                <div class="n">1</div>
+                <div class="l">estação<br>atravessada</div>
+              </div>
+            </div>
+            <div class="voltar-obs">
+              <div class="ol">observação</div>
+              <div class="ot">do uso real, parece que Ascend encaixa.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DADOS -->
+  <div class="screen-cell">
+    <div class="screen-act">tela 09</div>
+    <div class="screen-name">Dados</div>
+    <div class="screen-tagline">inventário + uso real lado a lado</div>
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <span>14:22</span>
+          <div class="right">●●● ▲ 95%</div>
+        </div>
+        <div class="dados-screen">
+          <div class="dados-top">
+            <div class="dt-title">dados gerais</div>
+          </div>
+          <div class="dados-tabs">
+            <div class="dtab active">inventário</div>
+            <div class="dtab active">uso real</div>
+          </div>
+          <div class="dados-body">
+            <div class="chart-card">
+              <div class="cc-label">inventário</div>
+              <div class="cc-title">142 peças · 18 categorias</div>
+              <div class="donut-wrap" style="position: relative;">
+                <div class="donut">
+                  <div class="donut-info">
+                    <div class="n">142</div>
+                    <div class="l">peças</div>
+                  </div>
+                </div>
+                <div class="donut-legend">
+                  <div class="lg"><span class="dot" style="background:#1A1A1C"></span>Tops <span class="val">24%</span></div>
+                  <div class="lg"><span class="dot" style="background:#6E6E73"></span>Jaquetas <span class="val">13%</span></div>
+                  <div class="lg"><span class="dot" style="background:#8E8E93"></span>Calças <span class="val">13%</span></div>
+                  <div class="lg"><span class="dot" style="background:#AEAEB2"></span>Vestidos <span class="val">10%</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="chart-card">
+              <div class="cc-label">uso real · últimos 30 dias</div>
+              <div class="cc-title">frequência por categoria</div>
+              <div class="bars-list">
+                <div class="bar-row">
+                  <div class="bn">Tops</div>
+                  <div class="bb"><div class="fill" style="width: 88%"></div></div>
+                  <div class="bv">88%</div>
+                </div>
+                <div class="bar-row">
+                  <div class="bn">Calças</div>
+                  <div class="bb"><div class="fill" style="width: 64%"></div></div>
+                  <div class="bv">64%</div>
+                </div>
+                <div class="bar-row">
+                  <div class="bn">Jaquetas</div>
+                  <div class="bb"><div class="fill" style="width: 42%"></div></div>
+                  <div class="bv">42%</div>
+                </div>
+                <div class="bar-row">
+                  <div class="bn">Vestidos</div>
+                  <div class="bb"><div class="fill" style="width: 18%"></div></div>
+                  <div class="bv">18%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================ -->
+<!-- BLOCO 4 · CARTEIRA          -->
+<!-- ============================ -->
+<section class="section-header">
+  <div class="section-meta">parte iv · carteira</div>
+  <h2>O composto de ferramentas <span class="light">que vivem dentro do hclō.</span></h2>
+  <p>A carteira não é apenas saldo. É histórico, desafios pendentes, convites para enviar, recompensas recebidas, mensalidade abatida e plano contratado. Tudo em um único lugar, com o valor de fora fica como respiração para o cotidiano.</p>
+</section>
+
+<div class="screens-row cols-2">
+
+  <div class="screen-cell">
+    <div class="screen-act">tela 10</div>
+    <div class="screen-name">Carteira</div>
+    <div class="screen-tagline">todas as ferramentas em um só lugar</div>
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <span>22:14</span>
+          <div class="right">●●● ▲ 95%</div>
+        </div>
+        <div class="wallet-header">
+          <div class="back-row">
+            <div class="back">‹</div>
+            <div class="h-title">carteira</div>
+          </div>
+          <div class="wallet-summary">
+            <div class="wallet-card-visual"></div>
+            <div class="wallet-balance">
+              <div class="b-label">saldo</div>
+              <div class="b-amount">347<span class="b-unit">hclō</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="wallet-tools">
+          <div class="tool-row">
+            <div class="t-ico">⟲</div>
+            <div class="t-text">
+              <div class="t-name">Histórico</div>
+              <div class="t-sub">+18 hoje · +75 esta semana</div>
+            </div>
+            <div class="t-meta positive">+93</div>
+          </div>
+          <div class="tool-row">
+            <div class="t-ico">◆</div>
+            <div class="t-text">
+              <div class="t-name">Desafios pendentes</div>
+              <div class="t-sub">2 ativos · 1 aceito</div>
+            </div>
+            <div class="t-meta">2</div>
+          </div>
+          <div class="tool-row">
+            <div class="t-ico">+</div>
+            <div class="t-text">
+              <div class="t-name">Convites disponíveis</div>
+              <div class="t-sub">enviar para alguém preparada</div>
+            </div>
+            <div class="t-meta">3</div>
+          </div>
+          <div class="tool-row">
+            <div class="t-ico">★</div>
+            <div class="t-text">
+              <div class="t-name">Recompensas recebidas</div>
+              <div class="t-sub">desafio Reserva concluído</div>
+            </div>
+            <div class="t-meta positive">+60</div>
+          </div>
+          <div class="tool-row">
+            <div class="t-ico">$</div>
+            <div class="t-text">
+              <div class="t-name">Mensalidade abatida</div>
+              <div class="t-sub">próximo ciclo coberto</div>
+            </div>
+            <div class="t-meta">100%</div>
+          </div>
+          <div class="tool-row">
+            <div class="t-ico">▲</div>
+            <div class="t-text">
+              <div class="t-name">Plano contratado</div>
+              <div class="t-sub">Ascend · renovado em 12 dias</div>
+            </div>
+            <div class="t-meta">›</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen-cell" style="justify-content: center;">
+    <div style="max-width: 360px; padding: 20px;">
+      <div style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--inox-2); margin-bottom: 16px; font-weight: 700;">princípios da carteira</div>
+
+      <p style="font-size: 18px; font-weight: 700; line-height: 1.4; color: #F5F5F7; margin-bottom: 16px; letter-spacing: -0.01em;">O valor de fora respira. As ferramentas de dentro circulam.</p>
+
+      <p style="font-size: 13px; line-height: 1.7; color: var(--inox-2); margin-bottom: 14px;">O número na barra inferior da home é o saldo respirando. Mostra de longe quanto a pessoa tem, sem pedir clique. Dentro da carteira, esse mesmo saldo se desdobra em seis ferramentas que sustentam o ecossistema.</p>
+
+      <p style="font-size: 13px; line-height: 1.7; color: var(--inox-2); margin-bottom: 14px;">Histórico mostra o fluxo. Desafios mostram o que ainda pode virar saldo. Convites mostram o que pode ser multiplicado. Recompensas mostram o que foi conquistado. Mensalidade mostra o que foi abatido. Plano mostra a estrutura ao redor.</p>
+
+      <p style="font-size: 13px; line-height: 1.7; color: var(--inox-2);">A separação entre o número fora e as ferramentas dentro segue o princípio que você nomeou. O saldo precisa estar visível sem custo cognitivo. A composição precisa estar disponível sem cobrar abertura constante.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- NOTES -->
+<div class="doc-notes">
+  <div class="note">
+    <div class="nl">princípio um</div>
+    <div class="nt">O closet é o centro. Não a usuária.</div>
+    <div class="nb">Não há perfil pessoal, não há seguidores, não há feed. O closet tem identidade própria no ecossistema, com codinome conquistado por fase. A pessoa habita o closet, mas é o closet que se apresenta ao sistema.</div>
+  </div>
+  <div class="note">
+    <div class="nl">princípio dois</div>
+    <div class="nt">A porta é uma metáfora literal.</div>
+    <div class="nb">O acervo fica permanentemente ao lado, como se houvesse uma porta de armário sempre à mão. O sliver de inox é sinal de presença, não obstáculo. Arrastar abre o cômodo inteiro. Fechar devolve a constelação.</div>
+  </div>
+  <div class="note">
+    <div class="nl">princípio três</div>
+    <div class="nt">A constelação conta uma história.</div>
+    <div class="nb">Agora (look do dia), potencial (pasta de estilo), reconhecimento (desafio), memória (arquivo). Quatro estados que não são funcionalidades separadas, são camadas sucessivas de uma mesma relação com o que já está dentro do cômodo.</div>
+  </div>
+</div>
+
+<footer class="doc-footer">
+  <div>esqueleto visual · v.02 · referência Fits adaptada</div>
+  <div class="logo">handclō</div>
+  <div>cinza · inox · sem rede social</div>
+</footer>
+
+</body>
+</html>
